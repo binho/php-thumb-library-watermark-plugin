@@ -1,0 +1,37 @@
+About:
+
+A water mark plugin for PHP Thumb Library <http://phpthumb.gxdlabs.com>
+
+Instructions:
+
+Just put gd_watermark.inc.php on your thumb_plugins directory.
+
+<b>Usage:</b>
+
+try {
+        $thumb = PhpThumbFactory::create($file_path);
+} catch (Exception $e) {
+        die('Opsss! Something wrong: '.$e->getMessage());
+}
+
+$info = getimagesize($file_path);
+$image_width  = intval($info[0]);
+$image_height = intval($info[1]);
+
+$is_portrait = false;
+if ($image_height > $image_width) {
+        $is_portrait = true;
+}
+
+if ($is_portrait) {
+        $thumb->adaptiveResizeQuadrant(1024, 768, 'T');
+        $thumb->crop(0, 0, 1024, 768);
+} else {
+        $thumb->adaptiveResize(1024, 768);
+        $thumb->cropFromCenter(1024, 768);
+}
+
+$watermark = dirname(__FILE__).'/../images/watermark.png';
+
+$thumb->createWatermark($watermark, 10, 10); /* margin bottom 10px and margin right 10px */
+$thumb->save('/path/to/save/image.jpg');
