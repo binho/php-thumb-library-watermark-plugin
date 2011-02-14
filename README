@@ -1,12 +1,12 @@
-About:
+*** ABOUT ***
 
 A water mark plugin for PHP Thumb Library <http://phpthumb.gxdlabs.com>
 
-Instructions:
+*** INSTRUCTIONS ***
 
 Just put gd_watermark.inc.php on your thumb_plugins directory.
 
-<b>Usage:</b>
+*** USAGE ***
 
 try {
         $thumb = PhpThumbFactory::create($file_path);
