@@ -50,7 +50,7 @@ class GdWatermarkLib
 	 * @param int $bottom_margin
 	 * @return object
 	 */
-	public function createWatermark($image_path, $right_margin, $bottom_margin, &$that)
+	public function createWatermark($image_path, $right_margin, $bottom_margin, $watermark_opacity, &$that)
 	{
 		$this->parentInstance    = $that;
 		$this->currentDimensions = $this->parentInstance->getCurrentDimensions();
@@ -65,14 +65,15 @@ class GdWatermarkLib
 		$sx = imagesx($stamp);
 		$sy = imagesy($stamp);
 
-		imagecopy($this->workingImage,
+		imagecopymerge($this->workingImage,
 				  $stamp,
 				  imagesx($this->workingImage) - $sx - $right_margin,
 				  imagesy($this->workingImage) - $sy - $bottom_margin,
 				  0,
 				  0,
 				  imagesx($stamp),
-				  imagesy($stamp));
+				  imagesy($stamp),
+				  $watermark_opacity);
 
 		$this->parentInstance->setOldImage( $this->workingImage );
 
